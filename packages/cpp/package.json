@@ -2,8 +2,9 @@
   "name": "@repo/cpp",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "exports": {
-    "./*": "./out/*"
+    "./*": "./src/*.ts"
   },
   "scripts": {
     "build": "just build",
