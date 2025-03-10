@@ -26,9 +26,9 @@ public:
 
   Element render() override
   {
-    return h("div", {{"className", "p-4"}},
+    return h("div", {{"className", "min-w-[200px]"}},
              h("h1", {{"className", "text-2xl"}},
-               text("Counter")),
+               text("Counter (C++)")),
              h("p", {{"className", "text-lg"}},
                text("Count: " + std::to_string(state.count))),
              h("button",

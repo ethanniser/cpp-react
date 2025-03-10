@@ -50,7 +50,7 @@ public:
 
     void setId(std::string id_)
     {
-        val::global("console").call<void>("log", val("Setting id to " + id_));
+        // val::global("console").call<void>("log", val("Setting id to " + id_));
         id = id_;
     }
 };
