@@ -1,5 +1,9 @@
 #include <emscripten/bind.h>
+#include <emscripten/val.h>
+#include <emscripten/console.h>
 #include "CSX.hpp"
+
+using namespace emscripten;
 
 template <typename State>
 class Component
@@ -7,22 +11,16 @@ class Component
 protected:
     State state;
     val stateChangeCallback;
-    std::map<std::string, val> boundMethods;
+    std::string id;
+    std::map<std::string, std::function<val()>> boundMethods;
 
-    // Helper to bind methods
     template <typename T>
-    val bind(void (T::*method)())
+    void bindMethod(void (T::*method)(), const std::string &name)
     {
-        val instance = val(this);
-        val func = val::global("Function").new_(std::string("return function() { return this.") + std::string(method) + std::string(".apply(this, arguments); }"));
-        return func.call<val>("bind", instance);
-    }
-
-    // Bind method and store it
-    template <typename T>
-    void bindMethod(const std::string &name, void (T::*method)())
-    {
-        boundMethods[name] = bind(method);
+        boundMethods[name] = [this, name]()
+        {
+            return val::global("Function").new_(val(std::string("globalThis.cppInstances.get('") + id + std::string("').") + name + std::string("()")));
+        };
     }
 
 public:
@@ -47,6 +45,12 @@ public:
 
     val getBoundMethod(const std::string &name)
     {
-        return boundMethods[name];
+        return boundMethods[name]();
+    }
+
+    void setId(std::string id_)
+    {
+        val::global("console").call<void>("log", val("Setting id to " + id_));
+        id = id_;
     }
 };

@@ -1,6 +1,7 @@
 #include <emscripten/bind.h>
 #include "CSX.hpp"
 #include "Component.hpp"
+#include <emscripten.h>
 
 struct CounterState
 {
@@ -13,7 +14,7 @@ public:
   Counter()
   {
     state.count = 0;
-    // bindMethod("increment", &Counter::increment);
+    bindMethod(&Counter::increment, "increment");
   }
 
   void increment()
@@ -31,9 +32,8 @@ public:
              h("p", {{"className", "text-lg"}},
                text("Count: " + std::to_string(state.count))),
              h("button",
-               {{"className", "bg-blue-500 text-white px-4 py-2 rounded"},
-                // {"onClick", getBoundMethod("increment")}},
-                {}},
+               {{"className", "bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"},
+                {"onClick", getBoundMethod("increment")}},
                text("Increment")));
   }
 };
@@ -43,11 +43,11 @@ EMSCRIPTEN_BINDINGS(math_module)
   // Base component binding
   class_<Component<CounterState>>("BaseComponent")
       .function("render", &Component<CounterState>::render)
-      .function("setStateChangeCallback", &Component<CounterState>::setStateChangeCallback);
+      .function("setStateChangeCallback", &Component<CounterState>::setStateChangeCallback)
+      .function("setId", &Component<CounterState>::setId);
 
   // Counter binding
   class_<Counter, base<Component<CounterState>>>("Counter")
       .constructor()
-      .function("render", &Counter::render)
-      .function("setStateChangeCallback", &Counter::setStateChangeCallback);
+      .function("increment", &Counter::increment);
 }
