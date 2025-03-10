@@ -17,7 +17,12 @@
         default = pkgs.mkShell {
           packages = with pkgs; [
             emscripten
+            just
           ];
+          shellHook = ''
+            export EM_CACHE="$HOME/.cache/emscripten"
+            mkdir -p $EM_CACHE
+          '';
         };
       });
     };

@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./*": "./src/*.tsx"
+    "./*": "./out/*"
   },
   "scripts": {
-    "build": "emcc --bind -o math.js math.cpp -s WASM=1 -s EXPORTED_RUNTIME_METHODS=['ccall','cwrap'] -s EXPORT_ES6=1 -s MODULARIZE=1"
+    "build": "just build"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

@@ -11,7 +11,7 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@repo/ui": "workspace:*",
+    "@repo/cpp": "workspace:*",
     "@tailwindcss/postcss": "^4.0.12",
     "next": "^15.2.1",
     "postcss": "^8.5.3",
