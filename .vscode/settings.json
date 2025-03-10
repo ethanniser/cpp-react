@@ -3,5 +3,10 @@
     {
       "mode": "auto"
     }
-  ]
+  ],
+  "files.associations": {
+    "*.rmd": "markdown",
+    "variant": "cpp",
+    "string": "cpp"
+  }
 }

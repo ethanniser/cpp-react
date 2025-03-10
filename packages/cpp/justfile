@@ -1,3 +1,6 @@
 build:
     mkdir -p out
     emcc --bind -o out/math.js src/math.cpp -s WASM=1 -s "EXPORTED_RUNTIME_METHODS=['ccall','cwrap']" -s EXPORT_ES6=1 -s MODULARIZE=1 -s ENVIRONMENT=web
+
+dev:
+    watchexec -w src -r -- just build

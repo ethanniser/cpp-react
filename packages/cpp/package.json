@@ -6,7 +6,8 @@
     "./*": "./out/*"
   },
   "scripts": {
-    "build": "just build"
+    "build": "just build",
+    "dev": "just dev"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

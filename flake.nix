@@ -18,6 +18,7 @@
           packages = with pkgs; [
             emscripten
             just
+            watchexec
           ];
           shellHook = ''
             export EM_CACHE="$HOME/.cache/emscripten"
