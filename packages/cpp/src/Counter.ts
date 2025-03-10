@@ -1,6 +1,5 @@
-// @ts-expect-error
 import InitModule from "../out/Counter.js";
-import { createCppComponent } from "./shim.js";
+import { createCppComponent } from "./shim";
 
 const Module = await InitModule();
 const { Counter } = Module;
